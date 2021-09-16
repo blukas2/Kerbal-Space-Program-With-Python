@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Sep 14 20:24:58 2021
+Created on Thu Sep 16 18:02:03 2021
 
 @author: Balazs
 """
-
 
 import krpc
 import time
@@ -34,8 +33,8 @@ POLAR_ORBIT = False
 ROLL_ORIENTATION = 180.0
 
 PITCH_PROGRAM_START = 1000.0
-PITCH_PROGRAM_45 = 25000.0
-PITCH_PROGRAM_COMPLETE = 140000.0
+PITCH_PROGRAM_45 = 20000.0
+PITCH_PROGRAM_COMPLETE = 110000.0
 
 
 
@@ -120,7 +119,7 @@ while ASCENT | COASTING | ORBITAL_INSERTION:
         if PITCH_PROGRAM:
             avionics.controlAttitude(target_vector = [calc_target_pitch(altitude), HEADING, ROLL_ORIENTATION],
                                      ref_frame = ref_surf, 
-                                     smoothness=10, roll_rel_smoothness=1.0, 
+                                     smoothness=20, roll_rel_smoothness=1.0, 
                                      precision=2.0, roll_precision=3.0)
             
         # staging
