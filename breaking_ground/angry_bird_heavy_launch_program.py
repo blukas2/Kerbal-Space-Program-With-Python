@@ -4,12 +4,6 @@ Created on Sat Aug 14 21:42:19 2021
 
 @author: Balazs
 """
-# Notes:
-    # USE SPACELINER 3b
-    # trajectory is too shallow, spacecraft starts falling back
-    # smoothness should be increased to reduce wooblyness
-    # coasting phase did not trigger
-    # check orbital insertion as well
 
 import krpc
 import time

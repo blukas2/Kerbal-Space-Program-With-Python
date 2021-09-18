@@ -20,13 +20,13 @@ ref_surf = vessel.surface_reference_frame
 ######################
 # LAUNCH PROFILE VARIABLES
 
-TARGET_APOAPSIS = 250000.0
+TARGET_APOAPSIS = 200000.0
 
-HEADING = 90.0
-POLAR_ORBIT = False
+#HEADING = 90.0
+#POLAR_ORBIT = False
 
-#HEADING = 356.0
-#POLAR_ORBIT = True
+HEADING = 356.0
+POLAR_ORBIT = True
 
 
 
@@ -77,7 +77,7 @@ def staging_sequence():
 
 # startup avionics computer
 
-exec(open('E:/Software Engineering/Kerbal-Space-Program-With-Python/globals/avionics/avionics_v1_33.py').read())
+exec(open('E:/Software Engineering/Kerbal-Space-Program-With-Python/globals/avionics/avionics_v1_34.py').read())
 
 
 ASCENT = True
@@ -119,7 +119,7 @@ while ASCENT | COASTING | ORBITAL_INSERTION:
         if PITCH_PROGRAM:
             avionics.controlAttitude(target_vector = [calc_target_pitch(altitude), HEADING, ROLL_ORIENTATION],
                                      ref_frame = ref_surf, 
-                                     smoothness=20, roll_rel_smoothness=1.0, 
+                                     smoothness=10, roll_rel_smoothness=10.0, 
                                      precision=2.0, roll_precision=3.0)
             
         # staging
