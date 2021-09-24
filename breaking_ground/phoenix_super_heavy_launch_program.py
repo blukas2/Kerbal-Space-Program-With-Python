@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep 19 16:58:45 2021
+Created on Wed Sep 22 21:45:02 2021
 
 @author: Balazs
 """
+
 
 import krpc
 import time
@@ -20,7 +21,7 @@ ref_surf = vessel.surface_reference_frame
 ######################
 # LAUNCH PROFILE VARIABLES
 
-TARGET_APOAPSIS = 230000.0
+TARGET_APOAPSIS = 200000.0
 
 HEADING = 90.0
 POLAR_ORBIT = False
@@ -33,7 +34,7 @@ POLAR_ORBIT = False
 ROLL_ORIENTATION = 180.0
 
 PITCH_PROGRAM_START = 1000.0
-PITCH_PROGRAM_45 = 55000.0
+PITCH_PROGRAM_45 = 35000.0
 PITCH_PROGRAM_COMPLETE = 200000.0
 
 

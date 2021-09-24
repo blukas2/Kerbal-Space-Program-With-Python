@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep 19 16:58:45 2021
+Created on Thu Sep 23 21:25:23 2021
 
 @author: Balazs
 """
+
 
 import krpc
 import time
@@ -20,7 +21,7 @@ ref_surf = vessel.surface_reference_frame
 ######################
 # LAUNCH PROFILE VARIABLES
 
-TARGET_APOAPSIS = 230000.0
+TARGET_APOAPSIS = 200000.0
 
 HEADING = 90.0
 POLAR_ORBIT = False
@@ -33,8 +34,8 @@ POLAR_ORBIT = False
 ROLL_ORIENTATION = 180.0
 
 PITCH_PROGRAM_START = 1000.0
-PITCH_PROGRAM_45 = 55000.0
-PITCH_PROGRAM_COMPLETE = 200000.0
+PITCH_PROGRAM_45 = 20000.0
+PITCH_PROGRAM_COMPLETE = 100000.0
 
 
 
@@ -61,15 +62,11 @@ def zeroout_controls(vessel=vessel):
 
 
 
-def staging_sequence(tandemStaging=True):
+def staging_sequence():
     zeroout_controls()
-    if tandemStaging:
-        vessel.control.throttle=0.05
+    vessel.control.throttle=0.05
     time.sleep(0.5)
-    if tandemStaging:
-        print('Stage separation!')
-    else:
-        print('Booster separation!')
+    print('Stage separation!')
     vessel.control.activate_next_stage()
     time.sleep(3.0)
     vessel.control.throttle=1
@@ -90,8 +87,7 @@ ORBITAL_INSERTION = False
 
 PITCH_PROGRAM = False
 
-BOOSTER_STAGE = True
-CORE_STAGE = False
+FIRST_STAGE = True
 SECOND_STAGE = False
 THIRD_STAGE = False
 
@@ -124,19 +120,14 @@ while ASCENT | COASTING | ORBITAL_INSERTION:
         if PITCH_PROGRAM:
             avionics.controlAttitude(target_vector = [calc_target_pitch(altitude), HEADING, ROLL_ORIENTATION],
                                      ref_frame = ref_surf, 
-                                     smoothness=10, roll_rel_smoothness=1.0, 
+                                     smoothness=10, roll_rel_smoothness=10.0, 
                                      precision=2.0, roll_precision=3.0)
             
         # staging
-        if BOOSTER_STAGE:
-            if vessel.resources_in_decouple_stage(stage=5, cumulative=False).amount('LiquidFuel')<0.1:
-                staging_sequence(tandemStaging=False)
-                BOOSTER_STAGE=False
-                CORE_STAGE=True
-        if CORE_STAGE:
+        if FIRST_STAGE:
             if vessel.thrust == 0.0:
                 staging_sequence()
-                CORE_STAGE=False
+                FIRST_STAGE=False
                 SECOND_STAGE=True
         if SECOND_STAGE:
             if vessel.thrust == 0.0:
@@ -179,3 +170,4 @@ while ASCENT | COASTING | ORBITAL_INSERTION:
             ORBITAL_INSERTION=False
             print('Orbital insertion complete!')
 print('Computer guidance ended.')
+            
